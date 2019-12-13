@@ -12,14 +12,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pokedex.R
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.PokemonRef
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.poke_dex_fragment.*
 
 class PokeDex : Fragment() {
 
     private lateinit var viewModel: PokeDexViewModel
     private val pokemonList = arrayListOf<PokemonRef>()
-    private lateinit var pokemon: Pokemon
-    private val pokemonAdapter = PokemonAdapter(pokemonList) {pokemon : PokemonRef -> onPokemonClick(pokemon) }
+    private var pokemons = arrayListOf<Pokemon>()
+    private val pokemonAdapter = PokemonAdapter(pokemons) {pokemon : Pokemon -> onPokemonClick(pokemon) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,20 +39,22 @@ class PokeDex : Fragment() {
 
         viewModel.getPokemonRefs()
 
-        viewModel.getPokemon("1")
+        // Observe pokemon from the view model, update the list when the data is changed.
+        viewModel.pokemon.observe(this, Observer { pokemon ->
+            if (pokemon.base_experience <= 100f && !pokemon.name.contains("alola")) { // Only low level pokemon and no 'alola's' (they have no poster)
+                this.pokemons.add(pokemon)
+                this.pokemons.sortBy { it.name }
+                pokemonAdapter.notifyDataSetChanged()
+            }
+        })
 
         // Observe pokemon from the view model, update the list when the data is changed.
         viewModel.pokemonRefs.observe(this, Observer { pokemonRefs ->
             this.pokemonList.clear()
             this.pokemonList.addAll(pokemonRefs)
-            pokemonAdapter.notifyDataSetChanged()
-            println("Pokedex $pokemonRefs")
-        })
-
-        // Observe pokemon from the view model, update the list when the data is changed.
-        viewModel.pokemon.observe(this, Observer { pokemon ->
-            this.pokemon = pokemon
-            println("POOEKAK $pokemon")
+            this.pokemonList.forEach { pokemonRef ->
+                viewModel.getPokemon(pokemonRef.name)
+            }
         })
     }
 
@@ -65,7 +68,8 @@ class PokeDex : Fragment() {
 
     }
 
-    private fun onPokemonClick(pokemon: PokemonRef) {
+    private fun onPokemonClick(pokemon: Pokemon) {
         println("Clicked on! $pokemon")
+        Snackbar.make(this.view!!, "Clicked on " + pokemon.name, Snackbar.LENGTH_SHORT).show()
     }
 }

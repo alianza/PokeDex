@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PokéDex</string>
-    <string name="loading_placeholder">Loading...</string>
+    <string name="loading_placeholder">Loading…</string>
+    <string name="pokemon">Pokemon</string>
 </resources>

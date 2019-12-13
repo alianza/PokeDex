@@ -1,26 +1,21 @@
 package com.example.pokedex.dex
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.pokedex.R
-import com.example.pokedex.data.PokeRepository
-import com.example.pokedex.model.PokeResult
 import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.PokemonRef
 import kotlinx.android.synthetic.main.pokemon_item.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+
 
 @Suppress("DEPRECATION")
 class PokemonAdapter(
-    private val pokemonsRefs: List<PokemonRef>,
-    private val onClick: (PokemonRef) -> Unit
+    private val pokemons: List<Pokemon>,
+    private val onClick: (Pokemon) -> Unit
 ) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -33,23 +28,23 @@ class PokemonAdapter(
     }
 
     override fun getItemCount(): Int {
-        return pokemonsRefs.size
+        return pokemons.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(pokemonsRefs[position])
+        holder.bind(pokemons[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         init {
-            itemView.setOnClickListener { onClick(pokemonsRefs[adapterPosition]) }
+            itemView.setOnClickListener { onClick(pokemons[adapterPosition]) }
         }
 
-        fun bind(pokemon: PokemonRef) {
+        fun bind(pokemon: Pokemon) {
             itemView.tvPokemon.text = pokemon.name
 
-//            Glide.with(context).load(baseUrl + movie.poster).into(itemView.ivPokemon)
+            Glide.with(context).load(pokemon.sprites.poster).into(itemView.ivPokemon)
 
             println("Adapter! " + pokemon.name)
         }

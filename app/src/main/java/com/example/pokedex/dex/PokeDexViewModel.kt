@@ -14,7 +14,6 @@ class PokeDexViewModel : ViewModel() {
 
     private val pokeRepository = PokeRepository()
     val pokemonRefs = MutableLiveData<Array<PokemonRef>>()
-//    val pokemon = MutableLiveData<Array<Pokemon>>()
     val pokemon = MutableLiveData<Pokemon>()
     val error = MutableLiveData<String>()
     val errorPoke = MutableLiveData<String>()
@@ -24,7 +23,6 @@ class PokeDexViewModel : ViewModel() {
             override fun onResponse(call: Call<PokeResult>, response: Response<PokeResult>) {
                 if (response.isSuccessful) {
                     pokemonRefs.value = response.body()?.pokemons
-                    println("Viewmodel! " + response.body())
                 }
                 else error.value = "An error occurred: ${response.errorBody().toString()}"
             }
@@ -41,7 +39,6 @@ class PokeDexViewModel : ViewModel() {
             override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
                 if (response.isSuccessful) {
                     pokemon.value = response.body()
-                    println("Viewmodel! " + response.body())
                 }
                 else error.value = "An error occurred: ${response.errorBody().toString()}"
             }

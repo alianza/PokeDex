@@ -1,21 +1,19 @@
 package com.example.pokedex.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
+import android.view.animation.AccelerateInterpolator
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pokedex.R
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.core.view.ViewCompat.animate
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme) // Finish splash screen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initNavigation()
@@ -38,6 +36,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.dexFragment -> showBottomNavigationBar(false)
 //                R.id.ratedFragment -> showBottomNavigationBar(false)
             }
+        }
+        animate(navView).apply {
+            interpolator = AccelerateInterpolator()
+            alpha(1f)
+            duration = 5000
+            start()
         }
     }
 

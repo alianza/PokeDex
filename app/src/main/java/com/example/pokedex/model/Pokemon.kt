@@ -9,7 +9,8 @@ data class Pokemon (
     @SerializedName("name") var name: String,
     @SerializedName("height") var height: String,
     @SerializedName("base_experience") var base_experience: Double,
-    @SerializedName("sprites") var sprites: Sprites
+    @SerializedName("sprites") var sprites: Sprites,
+    @SerializedName("order") var order: Int
     ): Parcelable {
 
     @Parcelize
