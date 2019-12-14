@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface PokeApiService {
-        @GET("pokemon/?offset=0&limit=1000")
+        @GET("pokemon/?offset=0&limit=100")
         fun getAllPokemonRefs(): Call<PokeResult>
 
         @GET("pokemon/{url}")

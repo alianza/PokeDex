@@ -3,16 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/pokeDex">
+    app:startDestination="@id/pokeDexFragment">
 
     <fragment
-        android:id="@+id/pokeDex"
-        android:name="com.example.pokedex.dex.PokeDex"
+        android:id="@+id/pokeDexFragment"
+        android:name="com.example.pokedex.dex.PokeDexFragment"
         android:label="poke_dex_fragment"
         tools:layout="@layout/poke_dex_fragment" >
         <action
             android:id="@+id/action_pokeDex_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <argument
+            android:name="withSearch"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -23,4 +27,16 @@
             android:name="pokemon"
             app:argType="com.example.pokedex.model.Pokemon" />
     </fragment>
+    <fragment
+        android:id="@+id/myPokemonFragment"
+        android:name="com.example.pokedex.myPokemon.MyPokemonFragment"
+        android:label="fragment_my_pokemon"
+        tools:layout="@layout/my_pokemon_fragment" />
+    <action
+        android:id="@+id/action_global_pokeDex"
+        app:destination="@id/pokeDexFragment" >
+        <argument
+            android:name="withSearch"
+            android:defaultValue="true" />
+    </action>
 </navigation>

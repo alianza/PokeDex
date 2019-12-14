@@ -2,4 +2,16 @@
     <string name="app_name">PokéDex</string>
     <string name="loading_placeholder">Loading…</string>
     <string name="pokemon">Pokemon</string>
+    <string name="no_results_search">No results for: %s</string>
+    <string name="no_results">No results :(</string>
+
+    <!--    Menu items    -->
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_my_pokemon">My Pokemon</string>
+    <string name="types_placeholder">Types...</string>
+    <string name="hp_placeholder">HP</string>
+    <string name="attack_placeholder">Attack</string>
+    <string name="defense_placeholder">Defense</string>
+    <string name="speed_placeholder">Speed</string>
 </resources>

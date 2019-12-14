@@ -4,17 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dex.PokeDex">
+    tools:context=".dex.PokeDexFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:scrollbarSize="6dp"
+        android:scrollbarThumbVertical="@color/colorPrimary"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/svSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/svSearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@color/colorPrimary"
-        android:scrollbarSize="6dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNoResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_results_search"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rvPokemon"
+        app:layout_constraintEnd_toEndOf="@+id/rvPokemon"
+        app:layout_constraintStart_toStartOf="@+id/rvPokemon"
+        app:layout_constraintTop_toTopOf="@+id/rvPokemon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

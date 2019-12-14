@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/pokeDexFragment"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/menu_home" />
     <item
-        android:id="@+id/dexFragment"
+        android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:title="@string/menu_search" />
+    <item
+        android:id="@+id/myPokemonFragment"
+        android:icon="@drawable/ic_pokeball"
+        android:title="@string/menu_my_pokemon" />
 </menu>

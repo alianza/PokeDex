@@ -1,7 +1,6 @@
 package com.example.pokedex.dex
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.pokemon_item.view.*
 
 @Suppress("DEPRECATION")
 class PokemonAdapter(
-    private val pokemons: List<Pokemon>,
+    var pokemons: List<Pokemon>,
     private val onClick: (Pokemon) -> Unit
 ) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 

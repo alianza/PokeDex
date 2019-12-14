@@ -12,7 +12,7 @@ class PokeApi {
         fun createApi(): PokeApiService {
             // Create an OkHttpClient to be able to make a log of the network traffic
             val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
                 .build()
 
             // Create the Retrofit instance
