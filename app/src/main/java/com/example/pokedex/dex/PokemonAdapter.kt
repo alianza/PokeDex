@@ -43,7 +43,7 @@ class PokemonAdapter(
         fun bind(pokemon: Pokemon) {
             itemView.tvPokemon.text = pokemon.name
 
-            Glide.with(context).load(pokemon.sprites.poster).into(itemView.ivPokemon)
+            Glide.with(context).load(pokemon.sprites.front_poster).into(itemView.ivPokemon)
 
             println("Adapter! " + pokemon.name)
         }

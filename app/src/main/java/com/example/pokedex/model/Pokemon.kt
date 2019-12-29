@@ -17,7 +17,8 @@ data class Pokemon (
 
     @Parcelize
     data class Sprites (
-        @SerializedName("front_default") var poster: String
+        @SerializedName("front_default") var front_poster: String,
+        @SerializedName("back_default") var back_poster: String
     ): Parcelable
 
     @Parcelize
