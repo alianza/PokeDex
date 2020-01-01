@@ -85,14 +85,13 @@ class MainActivity : AppCompatActivity() {
      * @return success
      */
     override fun onSupportNavigateUp(): Boolean {
-        val bundle = bundleOf("withSearch" to false)
-        findNavController(R.id.navHostFragment).navigate(R.id.action_global_pokeDex, bundle)
-//        onBackPressed()
+        if (findNavController(R.id.navHostFragment).currentDestination?.id == R.id.pokeDexFragment) {
+            val bundle = bundleOf("withSearch" to false)
+            findNavController(R.id.navHostFragment).navigate(R.id.action_global_pokeDex, bundle)
+        } else {
+            onBackPressed()
+        }
         return true
-    }
-
-    override fun onBackPressed() {
-        onSupportNavigateUp()
     }
 
     private fun displayBottomNav() {

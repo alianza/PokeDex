@@ -6,12 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.example.pokedex.R
+import com.example.pokedex.dex.PokemonAdapter
+import com.example.pokedex.model.Pokemon
+import com.example.pokedex.model.SavedPokemon
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.my_pokemon_fragment.*
+import kotlinx.android.synthetic.main.poke_dex_fragment.*
 
 class MyPokemonFragment : Fragment() {
 
     private lateinit var viewModel: MyPokemonViewModel
+    private var savedPokemons = arrayListOf<SavedPokemon>()
+    private val savedPokemonAdapter =
+        SavedPokemonAdapter(savedPokemons) { savedPokemon: SavedPokemon -> onPokemonClick(savedPokemon) }
+
+    private fun onPokemonClick(savedPokemon: SavedPokemon) {
+        val savedPokemonBundle = bundleOf("savedPokemon" to savedPokemon)
+
+        NavHostFragment.findNavController(navHostFragment).navigate(R.id.action_myPokemonFragment_to_detailFragment, savedPokemonBundle)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +43,22 @@ class MyPokemonFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MyPokemonViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
+        // Initialize the recycler view with a linear layout manager, adapter
+        rvSavedPokemon.layoutManager = StaggeredGridLayoutManager(1, RecyclerView.VERTICAL)
+        rvSavedPokemon.adapter = savedPokemonAdapter
+
+        viewModel.savedPokemon.observe(this, Observer { savedPokemons ->
+            if (savedPokemons != null) {
+                this.savedPokemons.clear()
+                savedPokemons.forEach{savedPokemon -> if (savedPokemon.caught) {
+                    this.savedPokemons.add(savedPokemon)
+                    }
+                }
+                this.savedPokemons.sortBy { it.name }
+                savedPokemonAdapter.notifyDataSetChanged()
+                println(this.savedPokemons)
+            }
+        })
+    }
 }

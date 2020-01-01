@@ -1,5 +1,6 @@
 package com.example.pokedex.dex
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,34 +45,34 @@ class PokeDexFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(PokeDexViewModel::class.java)
 
-        viewModel.getPokemonRefs()
+        if (pokemons.isEmpty() || pokemonRefs.isEmpty()) {
+            viewModel.getPokemonRefs()
 
-        // Observe pokemon from the view model, update the list when the data is changed.
-        viewModel.pokemon.observe(this, Observer { pokemon ->
-            if (pokemon.base_experience <= 100f && !pokemon.name.contains("alola")) { // Only low level pokemon and no 'alola's' (they have no poster)
-                this.pokemons.add(pokemon)
-                this.pokemons.sortBy { it.name }
-                pokemonAdapter.notifyDataSetChanged()
-            }
-        })
+            // Observe pokemon from the view model, update the list when the data is changed.
+            viewModel.pokemon.observe(this, Observer { pokemon ->
+                if (pokemon.base_experience <= 100f && !pokemon.name.contains("alola")) { // Only low level pokemon and no 'alola's' (they have no poster)
+                    this.pokemons.add(pokemon)
+                    this.pokemons.sortBy { it.name }
+                    pokemonAdapter.notifyDataSetChanged()
+                }
+            })
 
-        // Observe pokemon from the view model, update the list when the data is changed.
-        viewModel.pokemonRefs.observe(this, Observer { pokemonRefs ->
-            this.pokemonRefs.clear()
-            this.pokemonRefs.addAll(pokemonRefs)
-            this.pokemonRefs.forEach { pokemonRef ->
-                viewModel.getPokemon(pokemonRef.name)
-                pokemonAdapter.notifyDataSetChanged()
-            }
-        })
+            // Observe pokemon from the view model, update the list when the data is changed.
+            viewModel.pokemonRefs.observe(this, Observer { pokemonRefs ->
+                this.pokemonRefs.clear()
+                this.pokemonRefs.addAll(pokemonRefs)
+                this.pokemonRefs.forEach { pokemonRef ->
+                    viewModel.getPokemon(pokemonRef.name)
+                    pokemonAdapter.notifyDataSetChanged()
+                }
+            })
+        }
     }
 
     private fun initViews() {
         // Initialize the recycler view with a linear layout manager, adapter
         rvPokemon.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvPokemon.adapter = pokemonAdapter
-
-        pokemons.clear()
 
         // Get withSearch parameter
         val withSearch = arguments?.getBoolean("withSearch")
@@ -96,7 +97,6 @@ class PokeDexFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 filter(query); return false
             }
-
         })
     }
 
@@ -105,6 +105,7 @@ class PokeDexFragment : Fragment() {
      *
      * @param query
      */
+    @SuppressLint("DefaultLocale")
     private fun filter(query: String) {
         filteredPokemons = pokemons.filter { pokemon ->
             pokemon.name.toLowerCase().contains(query.toLowerCase())

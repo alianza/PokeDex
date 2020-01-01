@@ -26,12 +26,20 @@
         <argument
             android:name="pokemon"
             app:argType="com.example.pokedex.model.Pokemon" />
+        <argument
+            android:name="savedPokemon"
+            app:argType="com.example.pokedex.model.SavedPokemon"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/myPokemonFragment"
         android:name="com.example.pokedex.myPokemon.MyPokemonFragment"
         android:label="fragment_my_pokemon"
-        tools:layout="@layout/my_pokemon_fragment" />
+        tools:layout="@layout/my_pokemon_fragment" >
+        <action
+            android:id="@+id/action_myPokemonFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_pokeDex"
         app:destination="@id/pokeDexFragment" >

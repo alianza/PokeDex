@@ -1,7 +1,13 @@
 package com.example.pokedex.myPokemon
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.example.pokedex.data.room.SavedPokeRepository
 
-class MyPokemonViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class MyPokemonViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val savedPokeRepository = SavedPokeRepository(application.applicationContext)
+
+    var savedPokemon = savedPokeRepository.getPokemons()
+
 }

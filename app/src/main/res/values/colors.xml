@@ -6,6 +6,18 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
 
+<!--    Types-->
+<color name="psychic">#673AB7</color>
+<color name="grass">#0CAD02</color>
+<color name="poison">#31FF00</color>
+<color name="water">#00A6FF</color>
+<color name="fire">#FF0B00</color>
+<color name="fighting">#CCCCCC</color>
+<color name="rock">#645757</color>
+<color name="bug">#d1e04d</color>
+<color name="electric">#FFF900</color>
+
+
     <!--    <color name="colorPrimary">#ffcb05</color>-->
 <!--    <color name="colorPrimaryDark">#2d70b7</color>-->
 <!--    <color name="colorAccent">#21386e</color>-->

@@ -2,7 +2,7 @@ package com.example.pokedex.dex
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokedex.data.PokeRepository
+import com.example.pokedex.data.pokeApi.PokeRepository
 import com.example.pokedex.model.PokeResult
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.PokemonRef
@@ -49,5 +49,4 @@ class PokeDexViewModel : ViewModel() {
             }
         })
     }
-
 }

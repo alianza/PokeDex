@@ -1,4 +1,4 @@
-package com.example.pokedex.data
+package com.example.pokedex.data.pokeApi
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

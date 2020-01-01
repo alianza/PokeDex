@@ -7,12 +7,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Pokemon (
     @SerializedName("name") var name: String,
-    @SerializedName("height") var height: String,
+    @SerializedName("height") var height: Int,
     @SerializedName("base_experience") var base_experience: Double,
+    @SerializedName("weight") var weight: Int,
     @SerializedName("sprites") var sprites: Sprites,
     @SerializedName("order") var order: Int,
     @SerializedName("types") var types: Array<Types>,
-    @SerializedName("stats") var stats: Array<Stats>
+    @SerializedName("stats") var stats: Array<Stats>,
+    @SerializedName("species") var species: Species
     ): Parcelable {
 
     @Parcelize
@@ -42,6 +44,12 @@ data class Pokemon (
 
     @Parcelize
     data class Stat (
+        @SerializedName("name") var name: String,
+        @SerializedName("url") var url: String
+    ): Parcelable
+
+    @Parcelize
+    data class Species (
         @SerializedName("name") var name: String,
         @SerializedName("url") var url: String
     ): Parcelable

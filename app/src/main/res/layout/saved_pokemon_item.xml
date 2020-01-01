@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="98dp"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/ivSavedPokemon"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        tools:srcCompat="@drawable/ic_launcher_foreground"
+        android:contentDescription="@string/cd_image"/>
+
+    <TextView
+        android:id="@+id/tvSavedPokemon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/loading_placeholder" />
+
+</LinearLayout>
