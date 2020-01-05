@@ -43,10 +43,14 @@ class MyPokemonFragment : Fragment() {
                 this.savedPokemons.clear()
                 savedPokemons.forEach{savedPokemon -> if (savedPokemon.caught) {
                     this.savedPokemons.add(savedPokemon)
+                    println(savedPokemon)
                     }
                 }
-                this.savedPokemons.sortBy { it.name }
+                this.savedPokemons.sortByDescending { it.caught_date }
                 savedPokemonAdapter.notifyDataSetChanged()
+                if (this.savedPokemons.isEmpty()) {
+                    tvNoSavedPokemon.visibility = View.VISIBLE
+                }
             }
         })
     }

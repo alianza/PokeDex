@@ -20,6 +20,7 @@ import com.example.pokedex.model.SavedPokemon
 import com.example.pokedex.model.Species
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.detail_fragment.*
+import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -91,7 +92,7 @@ class DetailFragment : Fragment() {
                 }
             // If there is no saved pokemon save it once with caught status false
             } else if (!initialSavedPokemon) {
-                val pokemonToSave = SavedPokemon(pokemon.name, pokemon.sprites.front_poster, false)
+                val pokemonToSave = SavedPokemon(pokemon.name, pokemon.sprites.front_poster, Date(), false)
                 this.savedPokemon = pokemonToSave
                 viewModel.insertSavedPokemon(pokemonToSave)
                 initialSavedPokemon = true
@@ -136,6 +137,7 @@ class DetailFragment : Fragment() {
             updateCaughtStatus(caught = false, showSnackbar = true)
         } else {
             this.savedPokemon.caught = true
+            this.savedPokemon.caught_date = Date()
             updateCaughtStatus(caught = true, showSnackbar = true)
         }
     }

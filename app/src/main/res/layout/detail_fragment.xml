@@ -217,12 +217,11 @@
                 android:text="@string/detail_description"
                 android:textStyle="bold" />
 
-            <ScrollView
+            <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="86dp"
-                android:layout_marginTop="8dp"
-                tools:ignore="NestedScrolling">
+                android:layout_marginTop="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -235,7 +234,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/loading_placeholder" />
                 </LinearLayout>
-            </ScrollView>
+            </androidx.core.widget.NestedScrollView>
 
             <TextView
                 android:id="@+id/textView7"
@@ -296,6 +295,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <TextView

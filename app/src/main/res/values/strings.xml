@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">PokéDex</string>
     <string name="pokemon">Pokemon</string>
+
+    <!--    PokéDex Fragment    -->
     <string name="no_results_search">No results for: %s</string>
     <string name="no_results">No results :(</string>
 
@@ -9,7 +11,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_my_pokemon">My Pokemon</string>
 
-    <!--    Detail page   -->
+    <!--    Detail Fragment   -->
     <string name="detail_description">Description</string>
     <string name="detail_profile">Profile</string>
     <string name="detail_height">Height:</string>
@@ -23,6 +25,10 @@
     <string name="cd_catch">Catch!</string>
     <string name="cd_image">Pokemon Poster</string>
     <string name="cd_rotate">Rotate</string>
+
+    <!--    My Pokemon Fragment     -->
+    <string name="no_saved_pokemon"><b>No caught pokemon!</b>\n Pokemon you mark as caught appear here.</string>
+    <string name="date_format">%s/%s/%s</string>
 
     <!--    Placeholders  -->
     <string name="types_placeholder">Types…</string>

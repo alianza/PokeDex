@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.pokedex.data.DateConverter
 import com.example.pokedex.model.SavedPokemon
 
 @Database(entities = [SavedPokemon::class], version = 1, exportSchema = false)
+@TypeConverters(DateConverter::class)
 abstract class SavedPokemonRoomDatabase : RoomDatabase() {
 
     abstract fun pokeDao(): SavedPokeDao

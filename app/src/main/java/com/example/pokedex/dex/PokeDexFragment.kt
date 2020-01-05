@@ -96,7 +96,7 @@ class PokeDexFragment : Fragment() {
             interpolator = AccelerateInterpolator()
             alpha(0f)
             duration = 1000
-            withEndAction { flLoader.visibility = View.GONE }
+            withEndAction { flLoader?.visibility = View.GONE }
             start()
         }    }
 
@@ -163,13 +163,13 @@ class PokeDexFragment : Fragment() {
     private fun setEmptyView(query: String) {
         if (pokemonAdapter.itemCount == 0) {
             if (query.isNotEmpty()) {
-                tvNoResults.text = getString(R.string.no_results_search, query)
+                tvNoSavedPokemon.text = getString(R.string.no_results_search, query)
             } else {
-                tvNoResults.text = getString(R.string.no_results)
+                tvNoSavedPokemon.text = getString(R.string.no_results)
             }
-            tvNoResults.visibility = View.VISIBLE
+            tvNoSavedPokemon.visibility = View.VISIBLE
         } else {
-            tvNoResults.visibility = View.GONE
+            tvNoSavedPokemon.visibility = View.GONE
         }
     }
 

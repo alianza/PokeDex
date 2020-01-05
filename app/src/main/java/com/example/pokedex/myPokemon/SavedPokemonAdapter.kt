@@ -19,6 +19,9 @@ class SavedPokemonAdapter(
 
     private lateinit var context: Context
 
+    private val MONTH_OFFSET = 1
+    private val YEAR_OFFSET = 1900
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
         return ViewHolder(
@@ -42,7 +45,13 @@ class SavedPokemonAdapter(
 
         @SuppressLint("DefaultLocale")
         fun bind(savedPokemon: SavedPokemon) {
-            itemView.tvSavedPokemon.text = savedPokemon.name.capitalize()
+            itemView.tvSavedPokemonName.text = savedPokemon.name.capitalize()
+            itemView.tvSavedPokemonDate.text = context.getString(
+                R.string.date_format,
+                savedPokemon.caught_date.date.toString(),
+                (savedPokemon.caught_date.month + MONTH_OFFSET).toString(),
+                (savedPokemon.caught_date.year + YEAR_OFFSET).toString()
+            )
             Glide.with(context).load(savedPokemon.poster_url).into(itemView.ivSavedPokemon)
         }
     }
