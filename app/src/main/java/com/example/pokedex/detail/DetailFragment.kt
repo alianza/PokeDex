@@ -19,7 +19,6 @@ import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.SavedPokemon
 import com.example.pokedex.model.Species
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : Fragment() {

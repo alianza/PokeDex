@@ -19,14 +19,23 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme) // Finish splash screen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initNavigation()
         initViews()
     }
 
+    /**
+     * Set's event listeners
+     *
+     */
     private fun initViews() {
         setListeners()
     }
 
+    /**
+     * Initiates navigation, appbar
+     *
+     */
     private fun initNavigation() {
         // The NavController
         val navController = findNavController(R.id.navHostFragment)
@@ -65,6 +74,11 @@ class MainActivity : AppCompatActivity() {
         displayBottomNav()
     }
 
+    /**
+     * Public function to alter ActionBar title
+     *
+     * @param title String title
+     */
     fun setActionBarTitle(title: String) {
         supportActionBar?.title = title
     }
@@ -94,6 +108,10 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Fades in the bottom nav bar
+     *
+     */
     private fun displayBottomNav() {
         animate(navView).apply {
             interpolator = AccelerateInterpolator()

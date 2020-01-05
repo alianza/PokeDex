@@ -11,7 +11,6 @@ import com.example.pokedex.model.SavedPokemon
 import com.example.pokedex.model.Species
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

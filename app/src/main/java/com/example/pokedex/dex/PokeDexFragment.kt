@@ -48,6 +48,14 @@ class PokeDexFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(PokeDexViewModel::class.java)
 
+        getPokemon()
+    }
+
+    /**
+     * Get's all pokemon references and then individual pokemons and adds them to list
+     *
+     */
+    private fun getPokemon() {
         // Check if previously loaded pokemon are still in memory (Don't need to load again)
         if (pokemons.isEmpty() || pokemonRefs.isEmpty()) {
             // Get Pokemon references
@@ -55,13 +63,13 @@ class PokeDexFragment : Fragment() {
 
             // Observe pokemon from the view model, update the list when the data is changed.
             viewModel.pokemon.observe(this, Observer { pokemon ->
-                    this.pokemons.add(pokemon)
-                    this.pokemons.sortBy { it.name }
-                    pokemonAdapter.notifyDataSetChanged()
+                this.pokemons.add(pokemon)
+                this.pokemons.sortBy { it.name }
+                pokemonAdapter.notifyDataSetChanged()
 //                    println("SIZE:" + this.pokemons.size + " " + BuildConfig.POKEMONS_TO_LOAD)
-                    if (this.pokemons.size == BuildConfig.POKEMONS_TO_LOAD) {
-                        hideLoader()
-                    }
+                if (this.pokemons.size == BuildConfig.POKEMONS_TO_LOAD) {
+                    hideLoader()
+                }
             })
 
             viewModel.error.observe(this, Observer { error: String ->
@@ -92,6 +100,10 @@ class PokeDexFragment : Fragment() {
             start()
         }    }
 
+    /**
+     * Binds pokemon adapter, sets searchView
+     *
+     */
     private fun initViews() {
         // Initialize the recycler view with a linear layout manager, adapter and hide ut until loaded
         rvPokemon.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
@@ -105,6 +117,10 @@ class PokeDexFragment : Fragment() {
         }
     }
 
+    /**
+     * Sets all event listeners
+     *
+     */
     private fun setListeners() {
         svSearch.setOnCloseListener {
             dismissKeyboard()

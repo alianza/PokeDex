@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedex.R
 import kotlinx.android.synthetic.main.type_item.view.*
 
-
 @Suppress("DEPRECATION")
 class TypesAdapter(private var types: List<String>) : RecyclerView.Adapter<TypesAdapter.ViewHolder>() {
 

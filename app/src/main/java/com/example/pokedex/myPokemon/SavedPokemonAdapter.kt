@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.R
 import com.example.pokedex.model.SavedPokemon
-import kotlinx.android.synthetic.main.detail_fragment.*
-import kotlinx.android.synthetic.main.pokemon_item.view.*
 import kotlinx.android.synthetic.main.saved_pokemon_item.view.*
 
 @Suppress("DEPRECATION")
