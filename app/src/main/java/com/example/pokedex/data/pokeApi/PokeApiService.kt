@@ -1,5 +1,6 @@
 package com.example.pokedex.data.pokeApi
 
+import com.example.pokedex.BuildConfig
 import com.example.pokedex.model.PokeResult
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.Species
@@ -8,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface PokeApiService {
-        @GET("pokemon/?offset=0&limit=100")
+        @GET("pokemon/?offset=0&limit=${BuildConfig.POKEMONS_TO_LOAD}")
         fun getAllPokemonRefs(): Call<PokeResult>
 
         @GET("pokemon/{url}")

@@ -39,4 +39,22 @@
         app:layout_constraintEnd_toEndOf="@+id/rvPokemon"
         app:layout_constraintStart_toStartOf="@+id/rvPokemon"
         app:layout_constraintTop_toTopOf="@+id/rvPokemon" />
+
+    <FrameLayout
+        android:id="@+id/flLoader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:src="@drawable/loader" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

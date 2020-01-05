@@ -42,9 +42,11 @@ class TypesAdapter(var types: List<String>) : RecyclerView.Adapter<TypesAdapter.
             when (type) {
                 "Psychic" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.psychic))
+                    itemView.tvType.setTextColor(getColor(context, R.color.white))
                 }
                 "Grass" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.grass))
+                    itemView.tvType.setTextColor(getColor(context, R.color.white))
                 }
                 "Poison" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.poison))
@@ -60,12 +62,26 @@ class TypesAdapter(var types: List<String>) : RecyclerView.Adapter<TypesAdapter.
                 }
                 "Rock" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.rock))
+                    itemView.tvType.setTextColor(getColor(context, R.color.white))
                 }
                 "Bug" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.bug))
                 }
                 "Electric" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.electric))
+                }
+                "Ground" -> {
+                    itemView.tvType.setBackgroundColor(getColor(context ,R.color.ground))
+                }
+                "Normal" -> {
+                    itemView.tvType.setBackgroundColor(getColor(context ,R.color.normal))
+                }
+                "Flying" -> {
+                    itemView.tvType.setBackgroundColor(getColor(context ,R.color.flying))
+                }
+                "Steel" -> {
+                    itemView.tvType.setBackgroundColor(getColor(context ,R.color.steel))
+                    itemView.tvType.setTextColor(getColor(context, R.color.white))
                 }
             }
         }

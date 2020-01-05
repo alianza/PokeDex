@@ -26,16 +26,6 @@ abstract class SavedPokemonRoomDatabase : RoomDatabase() {
                             SavedPokemonRoomDatabase::class.java, DATABASE_NAME
                         )
                             .fallbackToDestructiveMigration()
-//                            .addCallback(object : RoomDatabase.Callback() {
-//                                override fun onCreate(db: SupportSQLiteDatabase) {
-//                                    super.onCreate(db)
-//                                    INSTANCE?.let { database ->
-//                                        CoroutineScope(Dispatchers.IO).launch {
-//                                            database.gameDao().insertGame(Game(null,"Title", "Initial Text", Date()))
-//                                        }
-//                                    }
-//                                }
-//                            })
                             .build()
                     }
                 }

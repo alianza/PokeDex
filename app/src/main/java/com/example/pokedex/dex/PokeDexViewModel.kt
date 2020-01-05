@@ -28,8 +28,8 @@ class PokeDexViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<PokeResult>, t: Throwable) {
-                error.value = t.message
-                println("Failed to get pokemons! ${t.message}")
+                error.value = "Failed to get pokemons! ${t.message}"
+                println(error.value)
             }
         })
     }
@@ -38,14 +38,18 @@ class PokeDexViewModel : ViewModel() {
         pokeRepository.getPokemon(url).enqueue(object : Callback<Pokemon> {
             override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
                 if (response.isSuccessful) {
-                    pokemon.value = response.body()
+                    val pokemonResult = response.body() as (Pokemon)
+                    // Only low level pokemon and no 'alola's' (they have no poster)
+//                    if (pokemonResult.base_experience <= 100f && !pokemonResult.name.contains("alola")) {
+                        pokemon.value = pokemonResult
+//                    }
                 }
                 else error.value = "An error occurred: ${response.errorBody().toString()}"
             }
 
             override fun onFailure(call: Call<Pokemon>, t: Throwable) {
-                errorPoke.value = t.message
-                println("Failed to get pokemon! ${t.message}")
+                errorPoke.value = "Failed to get pokemon! ${t.message}"
+                println(errorPoke.value)
             }
         })
     }

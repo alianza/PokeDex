@@ -7,14 +7,12 @@
 
     <ImageView
         android:id="@+id/ivSavedPokemon"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_gravity="center"
+        android:contentDescription="@string/cd_image"
         android:scaleType="center"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
-        tools:srcCompat="@drawable/ic_launcher_foreground"
-        android:contentDescription="@string/cd_image"/>
+        tools:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/tvSavedPokemon"

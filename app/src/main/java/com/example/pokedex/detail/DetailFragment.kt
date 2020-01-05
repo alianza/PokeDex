@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -18,6 +19,7 @@ import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.SavedPokemon
 import com.example.pokedex.model.Species
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : Fragment() {
@@ -27,7 +29,7 @@ class DetailFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var species: Species
     private lateinit var savedPokemon: SavedPokemon
-    private var currentImageisFront = false
+    private var currentImageIsFront = false
     private var initialUpdate = false
     private var initialSavedPokemon = false
     private var types = mutableListOf<String>()
@@ -42,8 +44,8 @@ class DetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        println("KAKAKA" + arguments)
 
+        // Determine whether pokemon is passed as argument or pokemon has to be fetched based on name
         if (arguments?.containsKey("pokemon")!!) {
             pokemon = arguments!!.getParcelable("pokemon")!!
         }
@@ -62,7 +64,7 @@ class DetailFragment : Fragment() {
 
             // Observe pokemon from the view model, update the list when the data is changed.
             viewModel.pokemon.observe(this, Observer { pokemon ->
-                if (pokemon != null) { // Only low level pokemon and no 'alola's' (they have no poster)
+                if (pokemon != null) {
                     this.pokemon = pokemon
                     initViews()
                 }
@@ -70,23 +72,25 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private fun initViews() {
-        mainActivity.setActionBarTitle(pokemon.name)
+        mainActivity.setActionBarTitle(pokemon.name.capitalize())
 
-        println(pokemon)
-
+        // Get pokemon species
         viewModel.getSpecies(pokemon.species.url.substringAfter("species/"))
 
+        // Get saved pokemon to check caught status
         viewModel.getSavedPokemon(pokemon.name)
 
         viewModel.savedPokemon.observe(this, Observer { savedPokemon ->
             if (savedPokemon != null) {
                 this.savedPokemon = savedPokemon
+                // Update caught status of pokemon once
                 if (!initialUpdate) {
                     updateCaughtStatus(savedPokemon.caught, showSnackbar = false)
                     initialUpdate = true
                 }
-                println("savedPokemon $savedPokemon")
+            // If there is no saved pokemon save it once with caught status false
             } else if (!initialSavedPokemon) {
                 val pokemonToSave = SavedPokemon(pokemon.name, pokemon.sprites.front_poster, false)
                 this.savedPokemon = pokemonToSave
@@ -105,23 +109,26 @@ class DetailFragment : Fragment() {
     }
 
     private fun setListeners() {
-        ibRotate.setOnClickListener { onRotateButtonClick() }
+        ibRotate.setOnClickListener { rotatePokemonImage() }
+
+        ivPokemon.setOnClickListener { rotatePokemonImage() }
 
         ibCatch.setOnClickListener { onCatchButtonClick() }
     }
 
+    @SuppressLint("DefaultLocale")
     private fun updateCaughtStatus(caught: Boolean, showSnackbar: Boolean) {
-        val snackbarText: String = if (caught) {
+        val snackBarText: String = if (caught) {
             ibCatch.setImageDrawable(context?.getDrawable(R.drawable.ic_launcher_foreground))
             ibCatch.setTag(R.id.CAUGHT_TAG, true) // Key represents catch state
-            "Marked ${pokemon.name} as caught!"
+            getString(R.string.caught, pokemon.name.capitalize())
         } else {
             ibCatch.setImageDrawable(context?.getDrawable(R.drawable.ic_open_pokeball))
             ibCatch.setTag(R.id.CAUGHT_TAG, false) // Key represents catch state
-            "Marked ${pokemon.name} as NOT caught!"
+            getString(R.string.not_caught, pokemon.name.capitalize())
         }
         viewModel.updateSavedPokemon(this.savedPokemon)
-        if (showSnackbar) { Snackbar.make(clDetail, snackbarText, Snackbar.LENGTH_SHORT).show() }
+        if (showSnackbar) { Snackbar.make(clDetail, snackBarText, Snackbar.LENGTH_SHORT).show() }
     }
 
     private fun onCatchButtonClick() {
@@ -134,7 +141,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun onRotateButtonClick() {
+    private fun rotatePokemonImage() {
         setImage()
     }
 
@@ -144,6 +151,17 @@ class DetailFragment : Fragment() {
         setBars()
         setSpecies()
         setProfile()
+        hideLoader()
+    }
+
+    private fun hideLoader() {
+        ViewCompat.animate(flLoader).apply {
+            interpolator = AccelerateInterpolator()
+            alpha(0f)
+            duration = 500
+            withEndAction { flLoader.visibility = View.GONE }
+            start()
+        }
     }
 
     private fun setProfile() {
@@ -158,7 +176,7 @@ class DetailFragment : Fragment() {
 
     private fun setSpecies() {
         var speciesText = ""
-        // Observe pokemon from the view model, update the list when the data is changed.
+        // Observe species from the view model, concatenate flavor texts
         viewModel.species.observe(this, Observer { species ->
             this.species = species
             this.species.flavor_text_entries.forEach { flavorText ->
@@ -167,7 +185,6 @@ class DetailFragment : Fragment() {
                     flavorText.text = flavorText.text.trim()
                     if (!speciesText.contains(flavorText.text)) {
                         speciesText += " ${flavorText.text}"
-                        println("speciesText $speciesText")
                     }
                 }
             }
@@ -176,7 +193,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun setImage() {
-        currentImageisFront = if (currentImageisFront) {
+        currentImageIsFront = if (currentImageIsFront) {
             Glide.with(context!!).load(pokemon.sprites.back_poster).into(ivPokemon)
             false
         } else {
@@ -186,6 +203,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun setBars() {
+        pokemon.stats.sortBy { it.base_stat }
+        setProgressBarsMax(pokemon.stats.last().base_stat)
         pokemon.stats.forEach{ stat ->
             when (stat.stat.name) {
                 "hp" -> {
@@ -206,6 +225,13 @@ class DetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setProgressBarsMax(value: Int) {
+        pbAttack.max = value
+        pbSpeed.max = value
+        pbDefense.max = value
+        pbHp.max = value
     }
 
     @SuppressLint("DefaultLocale")

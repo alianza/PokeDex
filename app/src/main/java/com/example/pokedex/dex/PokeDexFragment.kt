@@ -6,15 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.pokedex.BuildConfig
 import com.example.pokedex.R
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.model.PokemonRef
@@ -45,16 +48,25 @@ class PokeDexFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(PokeDexViewModel::class.java)
 
+        // Check if previously loaded pokemon are still in memory (Don't need to load again)
         if (pokemons.isEmpty() || pokemonRefs.isEmpty()) {
+            // Get Pokemon references
             viewModel.getPokemonRefs()
 
             // Observe pokemon from the view model, update the list when the data is changed.
             viewModel.pokemon.observe(this, Observer { pokemon ->
-                if (pokemon.base_experience <= 100f && !pokemon.name.contains("alola")) { // Only low level pokemon and no 'alola's' (they have no poster)
                     this.pokemons.add(pokemon)
                     this.pokemons.sortBy { it.name }
                     pokemonAdapter.notifyDataSetChanged()
-                }
+//                    println("SIZE:" + this.pokemons.size + " " + BuildConfig.POKEMONS_TO_LOAD)
+                    if (this.pokemons.size == BuildConfig.POKEMONS_TO_LOAD) {
+                        hideLoader()
+                    }
+            })
+
+            viewModel.error.observe(this, Observer { error: String ->
+                hideLoader()
+                setEmptyView("")
             })
 
             // Observe pokemon from the view model, update the list when the data is changed.
@@ -66,11 +78,22 @@ class PokeDexFragment : Fragment() {
                     pokemonAdapter.notifyDataSetChanged()
                 }
             })
+        } else {
+            hideLoader()
         }
     }
 
+    private fun hideLoader() {
+        ViewCompat.animate(flLoader).apply {
+            interpolator = AccelerateInterpolator()
+            alpha(0f)
+            duration = 1000
+            withEndAction { flLoader.visibility = View.GONE }
+            start()
+        }    }
+
     private fun initViews() {
-        // Initialize the recycler view with a linear layout manager, adapter
+        // Initialize the recycler view with a linear layout manager, adapter and hide ut until loaded
         rvPokemon.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvPokemon.adapter = pokemonAdapter
 
@@ -193,6 +216,7 @@ class PokeDexFragment : Fragment() {
     }
 
     private fun onPokemonClick(pokemon: Pokemon) {
+        dismissKeyboard()
         val pokemonBundle = bundleOf("pokemon" to pokemon)
 //        findNavController().navigate(PokedexFragmentActions, pokemonBundle)
         NavHostFragment.findNavController(navHostFragment).navigate(R.id.action_pokeDex_to_detailFragment, pokemonBundle)

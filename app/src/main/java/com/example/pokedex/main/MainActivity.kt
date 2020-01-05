@@ -120,13 +120,7 @@ class MainActivity : AppCompatActivity() {
      *
      */
     private fun setListeners() {
-//        navView.menu.getItem(0).setOnMenuItemClickListener { onNavigateHomeButtonClick() }
         navView.menu.getItem(1).setOnMenuItemClickListener { onNavigateSearchButtonClick() }
-//        navView.menu.getItem(2).setOnMenuItemClickListener { onNavigateMyPokemonButtonClick() }
-    }
-
-    private fun onNavigateMyPokemonButtonClick(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun onNavigateSearchButtonClick(): Boolean {
@@ -138,9 +132,5 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.navHostFragment).navigate(R.id.action_global_pokeDex)
         }
         return true
-    }
-
-    private fun onNavigateHomeButtonClick(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

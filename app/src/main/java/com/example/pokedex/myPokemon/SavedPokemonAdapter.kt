@@ -1,5 +1,6 @@
 package com.example.pokedex.myPokemon
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -41,8 +42,9 @@ class SavedPokemonAdapter(
             itemView.setOnClickListener { onClick(savedPokemons[adapterPosition]) }
         }
 
+        @SuppressLint("DefaultLocale")
         fun bind(savedPokemon: SavedPokemon) {
-            itemView.tvSavedPokemon.text = savedPokemon.name
+            itemView.tvSavedPokemon.text = savedPokemon.name.capitalize()
             Glide.with(context).load(savedPokemon.poster_url).into(itemView.ivSavedPokemon)
         }
     }

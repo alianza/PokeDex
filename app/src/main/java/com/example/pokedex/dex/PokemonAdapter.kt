@@ -1,5 +1,6 @@
 package com.example.pokedex.dex
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +41,9 @@ class PokemonAdapter(
             itemView.setOnClickListener { onClick(pokemons[adapterPosition]) }
         }
 
+        @SuppressLint("DefaultLocale")
         fun bind(pokemon: Pokemon) {
-            itemView.tvPokemon.text = pokemon.name
+            itemView.tvPokemon.text = pokemon.name.capitalize()
             Glide.with(context).load(pokemon.sprites.front_poster).into(itemView.ivPokemon)
         }
     }
