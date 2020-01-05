@@ -20,9 +20,9 @@
     <color name="normal">#9c9c63</color>
     <color name="flying">#8e6feb</color>
     <color name="steel">#848484</color>
-
-
+    <color name="fairy">#F1C7FF</color>
+    s
     <!--    <color name="colorPrimary">#ffcb05</color>-->
-<!--    <color name="colorPrimaryDark">#2d70b7</color>-->
-<!--    <color name="colorAccent">#21386e</color>-->
+    <!--    <color name="colorPrimaryDark">#2d70b7</color>-->
+    <!--    <color name="colorAccent">#21386e</color>-->
 </resources>

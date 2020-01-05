@@ -27,12 +27,6 @@ class MyPokemonFragment : Fragment() {
     private val savedPokemonAdapter =
         SavedPokemonAdapter(savedPokemons) { savedPokemon: SavedPokemon -> onPokemonClick(savedPokemon) }
 
-    private fun onPokemonClick(savedPokemon: SavedPokemon) {
-        val savedPokemonBundle = bundleOf("savedPokemon" to savedPokemon)
-
-        NavHostFragment.findNavController(navHostFragment).navigate(R.id.action_myPokemonFragment_to_detailFragment, savedPokemonBundle)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,8 +51,13 @@ class MyPokemonFragment : Fragment() {
                 }
                 this.savedPokemons.sortBy { it.name }
                 savedPokemonAdapter.notifyDataSetChanged()
-                println(this.savedPokemons)
             }
         })
+    }
+
+    private fun onPokemonClick(savedPokemon: SavedPokemon) {
+        val savedPokemonBundle = bundleOf("savedPokemon" to savedPokemon)
+
+        NavHostFragment.findNavController(navHostFragment).navigate(R.id.action_myPokemonFragment_to_detailFragment, savedPokemonBundle)
     }
 }

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.type_item.view.*
 
 
 @Suppress("DEPRECATION")
-class TypesAdapter(var types: List<String>) : RecyclerView.Adapter<TypesAdapter.ViewHolder>() {
+class TypesAdapter(private var types: List<String>) : RecyclerView.Adapter<TypesAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -82,6 +82,9 @@ class TypesAdapter(var types: List<String>) : RecyclerView.Adapter<TypesAdapter.
                 "Steel" -> {
                     itemView.tvType.setBackgroundColor(getColor(context ,R.color.steel))
                     itemView.tvType.setTextColor(getColor(context, R.color.white))
+                }
+                "Fairy" -> {
+                    itemView.tvType.setBackgroundColor(getColor(context ,R.color.fairy))
                 }
             }
         }
