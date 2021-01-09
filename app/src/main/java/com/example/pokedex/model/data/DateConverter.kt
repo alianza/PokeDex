@@ -1,4 +1,4 @@
-package com.example.pokedex.data
+package com.example.pokedex.model.data
 
 import androidx.room.TypeConverter
 import java.util.*

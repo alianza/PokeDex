@@ -1,4 +1,4 @@
-package com.example.pokedex.detail
+package com.example.pokedex.view.detail
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedex.R
 import kotlinx.android.synthetic.main.type_item.view.*
 
-@Suppress("DEPRECATION")
 class TypesAdapter(private var types: List<String>) : RecyclerView.Adapter<TypesAdapter.ViewHolder>() {
 
     private lateinit var context: Context

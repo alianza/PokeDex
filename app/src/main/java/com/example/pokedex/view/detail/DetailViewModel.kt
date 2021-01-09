@@ -1,14 +1,14 @@
-package com.example.pokedex.detail
+package com.example.pokedex.view.detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.pokedex.data.pokeApi.PokeRepository
-import com.example.pokedex.data.room.SavedPokeRepository
-import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.SavedPokemon
-import com.example.pokedex.model.Species
+import com.example.pokedex.model.data.pokeApi.PokeRepository
+import com.example.pokedex.model.data.room.SavedPokeRepository
+import com.example.pokedex.model.entity.Pokemon
+import com.example.pokedex.model.entity.SavedPokemon
+import com.example.pokedex.model.entity.Species
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

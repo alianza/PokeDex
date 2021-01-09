@@ -1,4 +1,4 @@
-package com.example.pokedex.model
+package com.example.pokedex.model.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

@@ -1,4 +1,4 @@
-package com.example.pokedex.myPokemon
+package com.example.pokedex.view.myPokemon
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.R
-import com.example.pokedex.model.SavedPokemon
+import com.example.pokedex.model.entity.SavedPokemon
 import kotlinx.android.synthetic.main.saved_pokemon_item.view.*
 
 @Suppress("DEPRECATION")

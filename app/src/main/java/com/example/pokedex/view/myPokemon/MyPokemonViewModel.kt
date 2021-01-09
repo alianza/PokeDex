@@ -1,8 +1,8 @@
-package com.example.pokedex.myPokemon
+package com.example.pokedex.view.myPokemon
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.pokedex.data.room.SavedPokeRepository
+import com.example.pokedex.model.data.room.SavedPokeRepository
 
 class MyPokemonViewModel(application: Application) : AndroidViewModel(application) {
 

@@ -1,4 +1,4 @@
-package com.example.pokedex.main
+package com.example.pokedex.view.main
 
 import android.os.Bundle
 import android.view.View
@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat.animate
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.pokedex.R
-import com.example.pokedex.dex.PokeDexFragment
+import com.example.pokedex.view.dex.PokeDexFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +39,8 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initNavigation() {
         // The NavController
-        val navController = findNavController(R.id.navHostFragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         // Connect the navHostFragment with the BottomNavigationView.
         NavigationUI.setupWithNavController(navView, navController)
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         appBarConfiguration.topLevelDestinations.add(R.id.pokeDexFragment)
 //        toolbar.setupWithNavController(navController, appBarConfiguration)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             println("NavChange: $destination")
             when (destination.id) {

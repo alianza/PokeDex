@@ -1,4 +1,4 @@
-package com.example.pokedex.dex
+package com.example.pokedex.view.dex
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.R
-import com.example.pokedex.model.Pokemon
+import com.example.pokedex.model.entity.Pokemon
 import kotlinx.android.synthetic.main.pokemon_item.view.*
 
 

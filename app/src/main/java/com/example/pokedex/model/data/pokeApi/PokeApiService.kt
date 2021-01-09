@@ -1,9 +1,9 @@
-package com.example.pokedex.data.pokeApi
+package com.example.pokedex.model.data.pokeApi
 
 import com.example.pokedex.BuildConfig
-import com.example.pokedex.model.PokeResult
-import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.Species
+import com.example.pokedex.model.entity.PokeResult
+import com.example.pokedex.model.entity.Pokemon
+import com.example.pokedex.model.entity.Species
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

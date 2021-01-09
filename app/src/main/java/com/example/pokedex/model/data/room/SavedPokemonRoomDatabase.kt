@@ -1,12 +1,12 @@
-package com.example.pokedex.data.room
+package com.example.pokedex.model.data.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.pokedex.data.DateConverter
-import com.example.pokedex.model.SavedPokemon
+import com.example.pokedex.model.data.DateConverter
+import com.example.pokedex.model.entity.SavedPokemon
 
 @Database(entities = [SavedPokemon::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)

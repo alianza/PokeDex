@@ -1,4 +1,4 @@
-package com.example.pokedex.detail
+package com.example.pokedex.view.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.pokedex.R
-import com.example.pokedex.main.MainActivity
-import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.SavedPokemon
-import com.example.pokedex.model.Species
+import com.example.pokedex.model.entity.Pokemon
+import com.example.pokedex.model.entity.SavedPokemon
+import com.example.pokedex.model.entity.Species
+import com.example.pokedex.view.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.detail_fragment.*
 import java.util.*
@@ -47,13 +47,13 @@ class DetailFragment : Fragment() {
 
         // Determine whether pokemon is passed as argument or pokemon has to be fetched based on name
         if (arguments?.containsKey("pokemon")!!) {
-            pokemon = arguments!!.getParcelable("pokemon")!!
+            pokemon = requireArguments().getParcelable("pokemon")!!
         }
         if (arguments?.containsKey("savedPokemon")!!) {
-            savedPokemon = arguments!!.getParcelable("savedPokemon")!!
+            savedPokemon = requireArguments().getParcelable("savedPokemon")!!
         }
 
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         mainActivity = activity as MainActivity
         ibCatch.setTag(R.id.CAUGHT_TAG, false) // Key represents catch state
 
@@ -63,7 +63,7 @@ class DetailFragment : Fragment() {
             viewModel.getPokemon(savedPokemon.name)
 
             // Observe pokemon from the view model, update the list when the data is changed.
-            viewModel.pokemon.observe(this, Observer { pokemon ->
+            viewModel.pokemon.observe(viewLifecycleOwner, { pokemon ->
                 if (pokemon != null) {
                     this.pokemon = pokemon
                     initViews()
@@ -82,7 +82,7 @@ class DetailFragment : Fragment() {
         // Get saved pokemon to check caught status
         viewModel.getSavedPokemon(pokemon.name)
 
-        viewModel.savedPokemon.observe(this, Observer { savedPokemon ->
+        viewModel.savedPokemon.observe(viewLifecycleOwner, { savedPokemon ->
             if (savedPokemon != null) {
                 this.savedPokemon = savedPokemon
                 // Update caught status of pokemon once
@@ -119,11 +119,11 @@ class DetailFragment : Fragment() {
     @SuppressLint("DefaultLocale")
     private fun updateCaughtStatus(caught: Boolean, showSnackbar: Boolean) {
         val snackBarText: String = if (caught) {
-            ibCatch.setImageDrawable(context?.getDrawable(R.drawable.ic_launcher_foreground))
+            ibCatch.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_launcher_foreground))
             ibCatch.setTag(R.id.CAUGHT_TAG, true) // Key represents catch state
             getString(R.string.caught, pokemon.name.capitalize())
         } else {
-            ibCatch.setImageDrawable(context?.getDrawable(R.drawable.ic_open_pokeball))
+            ibCatch.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_open_pokeball))
             ibCatch.setTag(R.id.CAUGHT_TAG, false) // Key represents catch state
             getString(R.string.not_caught, pokemon.name.capitalize())
         }
@@ -178,7 +178,7 @@ class DetailFragment : Fragment() {
     private fun setSpecies() {
         var speciesText = ""
         // Observe species from the view model, concatenate flavor texts
-        viewModel.species.observe(this, Observer { species ->
+        viewModel.species.observe(viewLifecycleOwner, { species ->
             this.species = species
             this.species.flavor_text_entries.forEach { flavorText ->
                 if (flavorText.language.name == "en") {
@@ -195,10 +195,10 @@ class DetailFragment : Fragment() {
 
     private fun setImage() {
         currentImageIsFront = if (currentImageIsFront) {
-            Glide.with(context!!).load(pokemon.sprites.back_poster).into(ivPokemon)
+            Glide.with(requireContext()).load(pokemon.sprites.back_poster).into(ivPokemon)
             false
         } else {
-            Glide.with(context!!).load(pokemon.sprites.front_poster).into(ivPokemon)
+            Glide.with(requireContext()).load(pokemon.sprites.front_poster).into(ivPokemon)
             true
         }
     }

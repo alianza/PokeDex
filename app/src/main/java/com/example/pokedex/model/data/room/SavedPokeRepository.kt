@@ -1,8 +1,8 @@
-package com.example.pokedex.data.room
+package com.example.pokedex.model.data.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.pokedex.model.SavedPokemon
+import com.example.pokedex.model.entity.SavedPokemon
 
 class SavedPokeRepository(context: Context) {
 

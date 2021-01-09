@@ -1,11 +1,11 @@
-package com.example.pokedex.dex
+package com.example.pokedex.view.dex
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokedex.data.pokeApi.PokeRepository
-import com.example.pokedex.model.PokeResult
-import com.example.pokedex.model.Pokemon
-import com.example.pokedex.model.PokemonRef
+import com.example.pokedex.model.data.pokeApi.PokeRepository
+import com.example.pokedex.model.entity.PokeResult
+import com.example.pokedex.model.entity.Pokemon
+import com.example.pokedex.model.entity.PokemonRef
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

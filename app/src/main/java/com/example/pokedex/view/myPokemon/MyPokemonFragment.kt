@@ -1,4 +1,4 @@
-package com.example.pokedex.myPokemon
+package com.example.pokedex.view.myPokemon
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pokedex.R
-import com.example.pokedex.model.SavedPokemon
+import com.example.pokedex.model.entity.SavedPokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.my_pokemon_fragment.*
 
@@ -32,13 +31,13 @@ class MyPokemonFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MyPokemonViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MyPokemonViewModel::class.java)
 
         // Initialize the recycler view with a linear layout manager, adapter
         rvSavedPokemon.layoutManager = StaggeredGridLayoutManager(1, RecyclerView.VERTICAL)
         rvSavedPokemon.adapter = savedPokemonAdapter
 
-        viewModel.savedPokemon.observe(this, Observer { savedPokemons ->
+        viewModel.savedPokemon.observe(viewLifecycleOwner, { savedPokemons ->
             if (savedPokemons != null) {
                 this.savedPokemons.clear()
                 savedPokemons.forEach{savedPokemon -> if (savedPokemon.caught) {

@@ -1,8 +1,8 @@
-package com.example.pokedex.data.room
+package com.example.pokedex.model.data.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.pokedex.model.SavedPokemon
+import com.example.pokedex.model.entity.SavedPokemon
 
 @Dao
 interface SavedPokeDao {
