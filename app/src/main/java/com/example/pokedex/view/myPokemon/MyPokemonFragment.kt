@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pokedex.R
@@ -57,6 +58,6 @@ class MyPokemonFragment : Fragment() {
     private fun onPokemonClick(savedPokemon: SavedPokemon) {
         val savedPokemonBundle = bundleOf("savedPokemon" to savedPokemon)
 
-        NavHostFragment.findNavController(navHostFragment).navigate(R.id.action_myPokemonFragment_to_detailFragment, savedPokemonBundle)
+        findNavController().navigate(R.id.action_myPokemonFragment_to_detailFragment, savedPokemonBundle)
     }
 }

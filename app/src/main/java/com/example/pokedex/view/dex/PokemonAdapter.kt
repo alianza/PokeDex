@@ -10,13 +10,12 @@ import com.bumptech.glide.Glide
 import com.example.pokedex.R
 import com.example.pokedex.model.entity.Pokemon
 import kotlinx.android.synthetic.main.pokemon_item.view.*
+import java.util.*
 
 
 @Suppress("DEPRECATION")
-class PokemonAdapter(
-    var pokemons: List<Pokemon>,
-    private val onClick: (Pokemon) -> Unit
-) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonAdapter(var pokemons: MutableList<Pokemon>, private val onClick: (Pokemon) -> Unit)
+    : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 

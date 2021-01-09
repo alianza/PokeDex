@@ -30,7 +30,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "int", "POKEMONS_TO_LOAD", "250"
+        buildConfigField "int", "POKEMONS_TO_LOAD", "25"
     }
     buildTypes {
         release {

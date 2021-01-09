@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initNavigation() {
         // The NavController
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController = findNavController(R.id.navHostFragment)
 
         // Connect the navHostFragment with the BottomNavigationView.
         NavigationUI.setupWithNavController(navView, navController)
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     setActionBarTitle(getString(R.string.app_name))
                     showBottomNavigationBar(true)
                 }
-                    R.id.search -> {
+                R.id.search -> {
                     showBackButton(false)
                     showBottomNavigationBar(true)
                 }

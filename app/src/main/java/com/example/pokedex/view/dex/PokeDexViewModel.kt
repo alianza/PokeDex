@@ -1,6 +1,7 @@
 package com.example.pokedex.view.dex
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.pokedex.model.data.pokeApi.PokeRepository
 import com.example.pokedex.model.entity.PokeResult
@@ -10,25 +11,42 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PokeDexViewModel : ViewModel() {
+class PokeDexViewModel() : ViewModel() {
 
     private val pokeRepository = PokeRepository()
     val pokemonRefs = MutableLiveData<Array<PokemonRef>>()
     val pokemon = MutableLiveData<Pokemon>()
+    val totalNumberOfPokemon = MutableLiveData<Int>()
     val error = MutableLiveData<String>()
     val errorPoke = MutableLiveData<String>()
 
-    fun getPokemonRefs() {
-        pokeRepository.getPokemonRefs().enqueue(object : Callback<PokeResult> {
+    fun getPokemonRefs(params: Map<String, Int>) {
+        pokeRepository.getPokemonRefs(params).enqueue(object : Callback<PokeResult> {
             override fun onResponse(call: Call<PokeResult>, response: Response<PokeResult>) {
                 if (response.isSuccessful) {
-                    pokemonRefs.value = response.body()?.pokemons
+                    pokemonRefs.value= response.body()?.pokemons
                 }
                 else error.value = "An error occurred: ${response.errorBody().toString()}"
             }
 
             override fun onFailure(call: Call<PokeResult>, t: Throwable) {
                 error.value = "Failed to get pokemons! ${t.message}"
+                println(error.value)
+            }
+        })
+    }
+
+    fun getTotalNumberOfPokemon() {
+        pokeRepository.getTotalNumberOfPokemon().enqueue(object : Callback<PokeResult> {
+            override fun onResponse(call: Call<PokeResult>, response: Response<PokeResult>) {
+                if (response.isSuccessful) {
+                    totalNumberOfPokemon.value= response.body()?.count
+                }
+                else error.value = "An error occurred: ${response.errorBody().toString()}"
+            }
+
+            override fun onFailure(call: Call<PokeResult>, t: Throwable) {
+                error.value = "Failed to get total number of pokemon! ${t.message}"
                 println(error.value)
             }
         })

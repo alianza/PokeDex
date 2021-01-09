@@ -9,7 +9,9 @@ class PokeRepository {
 
     private val pokeApi: PokeApiService = PokeApi.createApi()
 
-    fun getPokemonRefs(): Call<PokeResult> = pokeApi.getAllPokemonRefs()
+    fun getPokemonRefs(params: Map<String, Int>): Call<PokeResult> = pokeApi.getAllPokemonRefs(params)
+
+    fun getTotalNumberOfPokemon(): Call<PokeResult> = pokeApi.getTotalNumberOfPokemon()
 
     fun getPokemon(url: String): Call<Pokemon> = pokeApi.getPokemon(url)
 

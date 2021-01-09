@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Suppress("ArrayInDataClass")
 @Parcelize
 data class PokeResult (
+    @SerializedName("count") var count: Int,
     @SerializedName("results") var pokemons: Array<PokemonRef>
 ): Parcelable

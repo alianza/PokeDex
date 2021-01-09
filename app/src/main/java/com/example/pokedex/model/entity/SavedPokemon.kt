@@ -14,7 +14,7 @@ data class SavedPokemon (
     @PrimaryKey(autoGenerate = false)
     @NonNull
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "poster_url") var poster_url: String,
+    @ColumnInfo(name = "poster_url") var poster_url: String?,
     @ColumnInfo(name = "caught_date") var caught_date: Date,
     @ColumnInfo(name = "caught") var caught: Boolean
 ): Parcelable
